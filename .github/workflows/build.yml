@@ -1,7 +1,7 @@
 name: Build OpenWrt Official Docker Image
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -25,9 +25,9 @@ jobs:
         with:
           context: .
           push: true
-          tags:
-            - jianzhanhuangchao/openwrt-official:23.05.3
-            - jianzhanhuangchao/openwrt-official:latest
-          build-args:
-            - OPENWRT_VERSION=23.05.3
-            - OPENWRT_ARCH=x86_64
+          tags: |
+            jianzhanhuangchao/openwrt-official:23.05.3
+            jianzhanhuangchao/openwrt-official:latest
+          build-args: |
+            OPENWRT_VERSION=23.05.3
+            OPENWRT_ARCH=x86_64
