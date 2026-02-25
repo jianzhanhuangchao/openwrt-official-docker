@@ -5,8 +5,11 @@ FROM alpine:latest
 ARG OPENWRT_VERSION=23.05.3
 ARG OPENWRT_ARCH=x86_64
 
-# 下载官方 rootfs（从 OpenWrt 官网拉取，确保纯官方）
-RUN wget https://downloads.openwrt.org/releases/${OPENWRT_VERSION}/targets/x86/64/openwrt-${OPENWRT_VERSION}-x86-64-rootfs.tar.gz -O /tmp/rootfs.tar.gz \
+# 修复点1：预装依赖 + 换国内清华源下载（解决超时/404）
+RUN apk add --no-cache wget tar \
+    && wget https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/${OPENWRT_VERSION}/targets/x86/64/openwrt-${OPENWRT_VERSION}-x86-64-rootfs.tar.gz -O /tmp/rootfs.tar.gz \
+    # 验证文件是否下载成功（增加容错）
+    && if [ ! -f /tmp/rootfs.tar.gz ]; then echo "下载失败" && exit 1; fi \
     && mkdir -p /tmp/rootfs \
     && tar -xzf /tmp/rootfs.tar.gz -C /tmp/rootfs \
     && cp -rf /tmp/rootfs/* / \
