@@ -32,7 +32,7 @@ jobs:
         with:
           context: .
           push: true
-          tags:  # 镜像标签（必须替换为你的 Docker Hub 用户名）
+          tags:
             - jianzhanhuangchao/openwrt-official:23.05.3
             - jianzhanhuangchao/openwrt-official:latest
           build-args:
